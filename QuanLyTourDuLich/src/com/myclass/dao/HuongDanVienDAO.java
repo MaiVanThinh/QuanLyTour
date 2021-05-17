@@ -24,11 +24,40 @@ public class HuongDanVienDAO {
 	
 	public ArrayList<HuongDanVienDTO> getByTenHDV(String TenHDV) {
     	ArrayList<HuongDanVienDTO> dtos = new ArrayList<HuongDanVienDTO>();
-    	String query = "SELECT * FROM huongdanvien WHERE Ho LIKE? and Ten LIKE?"; 
+    	String query = "SELECT * FROM huongdanvien WHERE Ten LIKE ?"; 
     	try {
     		conn = JDBCConnection.getJDBCConnection(tableName);
     		pstmt = conn.prepareStatement(query);
-    		pstmt.setString(1, "%" +TenHDV );
+    		pstmt.setString(1,"%" + TenHDV + "%");
+    		rs = pstmt.executeQuery();
+    		
+    		while(rs.next()) {
+    			HuongDanVienDTO dto = new HuongDanVienDTO();
+    			
+    			dto.setMaHDV(rs.getString("MaHDV"));
+				dto.setHoTen(rs.getString("Ho") + " " + rs.getString("Ten"));
+				dto.setNgaySinh(rs.getString("NgaySinh"));
+				dto.setGioiTinh(rs.getString("GioiTinh"));
+				dto.setDiaChi(rs.getString("DiaChi"));
+				dto.setSdt(rs.getString("SDT"));
+				dtos.add(dto);
+    		}
+    		
+    		return dtos;
+    	} catch(SQLException e) {
+    		e.printStackTrace();
+    	}
+    	
+    	return null;
+    }
+	
+	public ArrayList<HuongDanVienDTO> getByHoHDV(String HoHDV) {
+    	ArrayList<HuongDanVienDTO> dtos = new ArrayList<HuongDanVienDTO>();
+    	String query = "SELECT * FROM huongdanvien WHERE Ho LIKE ?"; 
+    	try {
+    		conn = JDBCConnection.getJDBCConnection(tableName);
+    		pstmt = conn.prepareStatement(query);
+    		pstmt.setString(1,"%" + HoHDV + "%");
     		rs = pstmt.executeQuery();
     		
     		while(rs.next()) {

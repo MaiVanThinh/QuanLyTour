@@ -158,10 +158,39 @@ public class KhachHangDAO {
     	
 		return null;
 	}
+	
+	public ArrayList<KhachHangDTO> getByHoKH(String HoKH) {
+    	ArrayList<KhachHangDTO> dtos = new ArrayList<KhachHangDTO>();
+    	String query = "SELECT * FROM KhachHang WHERE HoKH LIKE ?"; 
+    	try {
+    		conn = JDBCConnection.getJDBCConnection(tableName);
+    		pstmt = conn.prepareStatement(query);
+    		pstmt.setString(1,"%" + HoKH + "%");
+    		rs = pstmt.executeQuery();
+    		
+    		while(rs.next()) {
+    			KhachHangDTO dto = new KhachHangDTO();
+    			
+    			dto.setMaKH(rs.getString("MaKH"));
+    			dto.setHoTenKH(rs.getString("HoKH") + " " + rs.getString("TenKH"));
+    			dto.setDiaChi(rs.getString("DiaChi"));
+    			dto.setSdt(rs.getString("SDT"));
+    			dto.setMaDoan(rs.getString("MaDoan"));
+    			
+    			dtos.add(dto);
+    		}
+    		
+    		return dtos;
+    	} catch(SQLException e) {
+    		e.printStackTrace();
+    	}
+    	
+		return null;
+	}
 
 	public ArrayList<KhachHangDTO> getByTenKH(String TenKH) {
     	ArrayList<KhachHangDTO> dtos = new ArrayList<KhachHangDTO>();
-    	String query = "SELECT * FROM KhachHang WHERE HoKH, TenKH LIKE ?"; 
+    	String query = "SELECT * FROM KhachHang WHERE TenKH LIKE ?"; 
     	try {
     		conn = JDBCConnection.getJDBCConnection(tableName);
     		pstmt = conn.prepareStatement(query);

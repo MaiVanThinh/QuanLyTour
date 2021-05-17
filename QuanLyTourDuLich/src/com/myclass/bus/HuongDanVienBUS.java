@@ -23,6 +23,10 @@ public class HuongDanVienBUS {
 		return listHuongDanVienDTO;
 	}
 	
+	public ArrayList<HuongDanVienDTO> getByHoHDV(String HoHDV) {
+		listHuongDanVienDTO = huongDanVienDAO.getByHoHDV(HoHDV);
+		return listHuongDanVienDTO;
+	}
 	
 	public void add(HuongDanVienDTO dto) {
 		huongDanVienDAO.add(dto);

@@ -27,6 +27,11 @@ public class KhachHangBUS {
 		khachHangDAO.deleteById(maKH);
 	}
 	
+	public ArrayList<KhachHangDTO> getByHoKH(String HoKH) {
+		return khachHangDAO.getByHoKH(HoKH);
+	}
+	
+	
 	public ArrayList<KhachHangDTO> getByTenKH(String tenKH) {
 		return khachHangDAO.getByTenKH(tenKH);
 	}
