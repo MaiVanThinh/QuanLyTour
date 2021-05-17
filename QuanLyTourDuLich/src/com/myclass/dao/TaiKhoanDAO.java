@@ -87,7 +87,7 @@ public class TaiKhoanDAO {
         Statement statement = null;
 
         try {
-            //Láº¥y danh sÃ¡ch phÆ°Æ¡ng tiá»‡n
+            
             connection = JDBCConnection.getJDBCConnection(tableName);
             //Query
             String sql = "Select * from " + tableName;

@@ -1,7 +1,7 @@
 package com.myclass.gui;
 
 import java.awt.EventQueue;
-
+import javax.swing.*;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -27,6 +27,7 @@ import com.myclass.bus.HuongDanVienBUS;
 import com.myclass.bus.KHTourBUS;
 import com.myclass.bus.KeHoachTourBUS;
 import com.myclass.bus.KhachHangBUS;
+import com.myclass.bus.NhaHangBUS;
 import com.myclass.bus.TaiKhoanBUS;
 import com.myclass.bus.TourBUS;
 import com.myclass.dao.TaiKhoanDAO;
@@ -210,8 +211,8 @@ public class Application extends JFrame {
 		lblTourMgmt.setForeground(Color.WHITE);
 		lblTourMgmt.setFont(new Font("Consolas", Font.BOLD, 16));
 		menuSidePane.add(lblTourMgmt);
-		
-		JLabel lblPersonnelMgmt = new JLabel("Qu\u1EA3n l\u00FD h\u01B0\u1EDBng d\u1EABn vi\u00EAn");
+	
+		JLabel lblPersonnelMgmt = new JLabel("Quản lí hướng dẫn viên");
 		lblPersonnelMgmt.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -222,12 +223,12 @@ public class Application extends JFrame {
 		lblPersonnelMgmt.setFont(new Font("Consolas", Font.BOLD, 16));
 		menuSidePane.add(lblPersonnelMgmt);
 		
-		JLabel lblFinanceMgmt = new JLabel("Qu\u1EA3n l\u00FD t\u00E0i ch\u00EDnh");
+		JLabel lblFinanceMgmt = new JLabel("Quản lí tài chính");
 		lblFinanceMgmt.setForeground(Color.WHITE);
 		lblFinanceMgmt.setFont(new Font("Consolas", Font.BOLD, 16));
 		menuSidePane.add(lblFinanceMgmt);
 		
-		JLabel lblVehicleMgmt = new JLabel("Qu\u1EA3n l\u00FD kh\u00E1ch h\u00E0ng");
+		JLabel lblVehicleMgmt = new JLabel("Quản lí khách hàng");
 		lblVehicleMgmt.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -270,7 +271,7 @@ public class Application extends JFrame {
 		cardQuanLyTaiKhoan.add(txtTaiKhoanSearch);
 		txtTaiKhoanSearch.setColumns(10);
 		
-		JButton btnTaiKhoanSearch = new JButton("Tìm\r\n");
+		JButton btnTaiKhoanSearch = new JButton("Tìm kiếm");
 		btnTaiKhoanSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int quyen = -1;
@@ -568,26 +569,57 @@ public class Application extends JFrame {
 		cardQuanLyTour.setLayout(null);
 		cardLayout.addLayoutComponent(cardQuanLyTour, "cardQuanLyTour");
 		
-		JLabel lblTourSearch = new JLabel("Tìm kiếm:");
-		lblTourSearch.setFont(new Font("Tahoma", Font.ITALIC, 16));
-		lblTourSearch.setBounds(20, 0, 80, 30);
-		cardQuanLyTour.add(lblTourSearch);
-		
-		JTextField txtTourSearch = new JTextField();
-		txtTourSearch.setBounds(100, 0, 200, 30);
-		cardQuanLyTour.add(txtTourSearch);
-		txtTourSearch.setColumns(10);
 		
 		JButton btnTourSearch = new JButton("Tìm");
 		btnTourSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<TaiKhoanDTO> listKQ = taiKhoanBUS.getByTenTK(txtTourSearch.getText());
-				taiKhoanTblModel.setRowCount(0); // xoa tat ca row
-				for(TaiKhoanDTO dto : listKQ) {
-					taiKhoanTblModel.addRow(new Object[] {
-							dto.getTenTK(), dto.getMatKhau(), dto.getQuyen()
-					});
-				}
+				ArrayList<TourDTO> listKQ;
+				Object[] options = {
+			            "Tìm kiếm theo mã Tour", "Tìm kiếm theo tên Tour", "Đóng"
+			        };
+			        int select = JOptionPane.showOptionDialog(btnTourSearch, "Bạn muốn tìm kiếm theo phương thức nào?", "Tùy chọn", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
+			        
+			        //System.out.println("select: " + select);
+			        //mÃ£ -> select: 0
+			        //tÃªn -> select: 1
+			        // chi phi -> select: 2
+			        // Ä‘Ã³ng -> select: 3
+			        
+			        if(select == 0){
+			            String input = JOptionPane.showInputDialog(btnTourSearch, "Mời bạn nhập mã Tour !");
+			            
+			            if(input != null && input.length() > 0){
+			                listKQ = tourBUS.getByMaTour(input);
+			                tourTblModel.setRowCount(0);
+			                
+			                for(TourDTO dto : listKQ) {
+								tourTblModel.addRow(new Object[] {
+										dto.getMaTour(), dto.getTenTour(), dto.getGiaVe(), dto.getDiemKhoiHanh(), dto.getDiemDen()
+								});
+			                };
+			            }
+			            else {
+			                JOptionPane.showMessageDialog(null, "Lỗi tìm kiếm !");
+			            }
+			        }
+			        
+			        if(select == 1){
+			            String input = JOptionPane.showInputDialog(btnTourSearch, "Mời bạn nhập tên Tour !");
+			            
+			            if(input != null && input.length() > 0){
+			                listKQ = tourBUS.getByTenTour(input);
+			                tourTblModel.setRowCount(0);
+			                
+			                for(TourDTO dto : listKQ) {
+								tourTblModel.addRow(new Object[] {
+										dto.getMaTour(), dto.getTenTour(), dto.getGiaVe(), dto.getDiemKhoiHanh(), dto.getDiemDen()
+								});
+			                };
+			            }
+			            else {
+			                JOptionPane.showMessageDialog(null, "Lỗi tìm kiếm !");
+			            }
+			        }
 			}
 		});
 		btnTourSearch.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -638,8 +670,20 @@ public class Application extends JFrame {
 		JButton btnTourReload = new JButton("Tải lại bảng");
 		btnTourReload.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tourTblModel.setRowCount(0);
-				loadTblTour();
+				/*
+				  System.out.print("hello"); tourTblModel.setRowCount(0); loadTblTour();
+				 */
+				ArrayList<TourDTO> listKQ;
+				listKQ = tourBUS.getAll();
+		        
+		        tourTblModel.setRowCount(0);
+		        
+		        listKQ.forEach(dto -> {
+		            tourTblModel.addRow(new Object[]{
+		                dto.getMaTour(), dto.getTenTour(), dto.getGiaVe(), dto.getDiemKhoiHanh(), dto.getDiemDen()
+		            });
+		        });
+		        
 			}
 		});
 		btnTourReload.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -1008,26 +1052,68 @@ public class Application extends JFrame {
 		lblHdvCard.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 30));
 		cardQuanLyHdv.add(lblHdvCard);
 		
-		JLabel lblHdvSearch = new JLabel("Tìm kiếm:");
+		/*JLabel lblHdvSearch = new JLabel("Tìm kiếm:");
 		lblHdvSearch.setFont(new Font("Tahoma", Font.ITALIC, 16));
 		lblHdvSearch.setBounds(20, 400, 80, 30);
 		cardQuanLyHdv.add(lblHdvSearch);
+		*/
 		
 		JTextField txtHdvSearch = new JTextField();
 		txtHdvSearch.setBounds(100, 400, 200, 30);
 		cardQuanLyHdv.add(txtHdvSearch);
 		txtHdvSearch.setColumns(10);
 		
-		JButton btnHdvSearch = new JButton("Tìm\r\n");
+		JButton btnHdvSearch = new JButton("Tìm kiếm");
 		btnHdvSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				ArrayList<TaiKhoanDTO> listKQ = taiKhoanBUS.getByTenTK(txtTourSearch.getText());
-//				taiKhoanTblModel.setRowCount(0); // xoa tat ca row
-//				for(TaiKhoanDTO dto : listKQ) {
-//					taiKhoanTblModel.addRow(new Object[] {
-//							dto.getTenTK(), dto.getMatKhau(), dto.getQuyen()
-//					});
-//				}
+				ArrayList<HuongDanVienDTO> listKQ;
+				
+				Object[] options = {
+			            "Tìm kiếm theo mã HDV", "Tìm kiếm theo tên HDV", "Đóng"
+			        };
+			        int select = JOptionPane.showOptionDialog(btnTourSearch, "Bạn muốn tìm kiếm theo phương thức nào?", "Tùy chọn", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
+			        
+			        //System.out.println("select: " + select);
+			        //mÃ£ -> select: 0
+			        //tÃªn -> select: 1
+			        // chi phi -> select: 2
+			        // Ä‘Ã³ng -> select: 3
+			        
+			        if(select == 0){
+			            String input = JOptionPane.showInputDialog(btnTourSearch, "Mời bạn nhập mã HDV !");
+			            
+			            if(input != null && input.length() > 0){
+			                listKQ = huongDanVienBUS.getByMaHDV(input);
+			                hdvTblModel.setRowCount(0);
+			                
+			                for(HuongDanVienDTO dto : listKQ) {
+			                	hdvTblModel.addRow(new Object[] {
+										dto.getMaHDV(), dto.getHoTen(), dto.getNgaySinh(), dto.getGioiTinh(), dto.getDiaChi(),dto.getSdt()
+								});
+			                };
+			            }
+			            else {
+			                JOptionPane.showMessageDialog(null, "Lỗi tìm kiếm !");
+			            }
+			        }
+			        
+			        if(select == 1){
+			            String input = JOptionPane.showInputDialog(btnTourSearch, "Mời bạn nhập tên HDV !");
+			            
+			            if(input != null && input.length() > 0){
+			                listKQ = huongDanVienBUS.getByTenHDV(input);
+			                hdvTblModel.setRowCount(0);
+			                
+			                for(HuongDanVienDTO dto : listKQ) {
+			                	hdvTblModel.addRow(new Object[] {
+										dto.getMaHDV(), dto.getHoTen(), dto.getNgaySinh(), dto.getGioiTinh(), dto.getDiaChi(),dto.getSdt()
+								});
+			                };
+			            }
+			            else {
+			                JOptionPane.showMessageDialog(null, "Lỗi tìm kiếm !");
+			            }
+			        }
 			}
 		});
 		btnHdvSearch.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -1071,6 +1157,17 @@ public class Application extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				hdvTblModel.setRowCount(0);
 				loadTblHdv();
+				/*ArrayList<HuongDanVienDTO> listKQ;
+				listKQ = huongDanVienBUS.getAll();
+		        
+				hdvTblModel.setRowCount(0);
+                
+                for(HuongDanVienDTO dto : listKQ) {
+                	hdvTblModel.addRow(new Object[] {
+							dto.getMaHDV(), dto.getHoTen(), dto.getNgaySinh(), dto.getGioiTinh(), dto.getDiaChi(),dto.getSdt()
+					});
+                };
+                */
 			}
 		});
 		btnHdvReload.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -1366,13 +1463,68 @@ public class Application extends JFrame {
 		JButton btnKhachHang_TimKiem = new JButton("Tìm\r\n");
 		btnKhachHang_TimKiem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<KhachHangDTO> listKQ = khachHangBUS.getByTenKH(txtTourSearch.getText());
+				/*ArrayList<KhachHangDTO> listKQ = khachHangBUS.getByTenKH(txtTourSearch.getText());
 				khachHangTblModel.setRowCount(0); // xoa tat ca row
 				for(KhachHangDTO dto : listKQ) {
 					khachHangTblModel.addRow(new Object[] {
 							dto.getMaKH(), dto.getHoTenKH(), dto.getDiaChi(), dto.getSdt(), dto.getMaDoan()
 					});
 				}
+				*/
+				ArrayList<KhachHangDTO> listKQ;// = taiKhoanBUS.getByTenTK(txtTourSearch.getText());
+				/*taiKhoanTblModel.setRowCount(0); // xoa tat ca row
+				for(TaiKhoanDTO dto : listKQ) {
+					taiKhoanTblModel.addRow(new Object[] {
+							dto.getTenTK(), dto.getMatKhau(), dto.getQuyen()
+					});
+				}
+				*/
+				Object[] options = {
+			            "Tìm kiếm theo mã khách hàng", "Tìm kiếm theo tên khách hàng", "Đóng"
+			        };
+			        int select = JOptionPane.showOptionDialog(btnTourSearch, "Bạn muốn tìm kiếm theo phương thức nào?", "Tùy chọn", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
+			        
+			        //System.out.println("select: " + select);
+			        //mÃ£ -> select: 0
+			        //tÃªn -> select: 1
+			        // chi phi -> select: 2
+			        // Ä‘Ã³ng -> select: 3
+			        
+			        if(select == 0){
+			            String input = JOptionPane.showInputDialog(btnTourSearch, "Mời bạn nhập mã khách hàng !");
+			            
+			            if(input != null && input.length() > 0){
+			                listKQ = khachHangBUS.getByMaKH(input);
+			                khachHangTblModel.setRowCount(0);
+			                
+			                for(KhachHangDTO dto : listKQ) {
+			                	khachHangTblModel.addRow(new Object[] {
+										dto.getMaKH(), dto.getHoTenKH(), dto.getDiaChi(), dto.getSdt(), dto.getMaDoan()
+								});
+			                };
+			            }
+			            else {
+			                JOptionPane.showMessageDialog(null, "Lỗi tìm kiếm !");
+			            }
+			        }
+			        
+			        if(select == 1){
+			            String input = JOptionPane.showInputDialog(btnTourSearch, "Mời bạn nhập tên khách hàng !");
+			            
+			            if(input != null && input.length() > 0){
+			                listKQ = khachHangBUS.getByTenKH(input);
+			                khachHangTblModel.setRowCount(0);
+			                
+			                for(KhachHangDTO dto : listKQ) {
+			                	khachHangTblModel.addRow(new Object[] {
+										dto.getMaKH(), dto.getHoTenKH(), dto.getDiaChi(), dto.getSdt(), dto.getMaDoan()
+								});
+			                };
+			            }
+			            else {
+			                JOptionPane.showMessageDialog(null, "Lỗi tìm kiếm !");
+			            }
+			        }
 			}
 		});
 		btnKhachHang_TimKiem.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -1412,8 +1564,18 @@ public class Application extends JFrame {
 		JButton btnKhachHang_TaiLai = new JButton("Tải lại bảng");
 		btnKhachHang_TaiLai.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//khachHangTblModel.setRowCount(0);
+				//loadTblKhachHang();
+				ArrayList<KhachHangDTO> listKQ;
+				listKQ = khachHangBUS.getAll();
+		        
 				khachHangTblModel.setRowCount(0);
-				loadTblKhachHang();
+                
+                for(KhachHangDTO dto : listKQ) {
+                	khachHangTblModel.addRow(new Object[] {
+							dto.getMaKH(), dto.getHoTenKH(), dto.getDiaChi(), dto.getSdt(), dto.getMaDoan()
+					});
+                };
 			}
 		});
 		btnKhachHang_TaiLai.setFont(new Font("Tahoma", Font.PLAIN, 16));

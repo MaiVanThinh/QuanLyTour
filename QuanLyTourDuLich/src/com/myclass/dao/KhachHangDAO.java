@@ -9,11 +9,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import com.myclass.connector.JDBCConnection;
+import com.myclass.dto.HuongDanVienDTO;
 import com.myclass.dto.KhachHangDTO;
 import com.myclass.dto.TaiKhoanDTO;
 
 public class KhachHangDAO {
-	private final static String tableName = "KhachHang";
+	private final static String tableName = "khachhang";
 	Connection conn;
 	PreparedStatement pstmt;
 	ResultSet rs;
@@ -22,15 +23,11 @@ public class KhachHangDAO {
 		
 	}
 	
-	public KhachHangDTO getById(String maKH) {
-		return null;
-	}
-	
 	public ArrayList<KhachHangDTO> getAll() {
 		ArrayList<KhachHangDTO> dtos;
 		try {
 			conn = JDBCConnection.getJDBCConnection(tableName);
-			String sql = "SELECT * FROM KhachHang";
+			String sql = "SELECT * FROM khachhang";
 			dtos = new ArrayList<KhachHangDTO>();
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -132,14 +129,43 @@ public class KhachHangDAO {
 			}
 		}
 	}
-
-	public ArrayList<KhachHangDTO> getByTenKH(String tenKH) {
+	
+	public ArrayList<KhachHangDTO> getByMaKH(String MaKH) {
     	ArrayList<KhachHangDTO> dtos = new ArrayList<KhachHangDTO>();
-    	String query = "SELECT * FROM KhachHang WHERE TenKH LIKE ?"; 
+    	String query = "SELECT * FROM KhachHang WHERE MaKH = ?"; 
     	try {
     		conn = JDBCConnection.getJDBCConnection(tableName);
     		pstmt = conn.prepareStatement(query);
-    		pstmt.setString(1, tenKH + "%");
+    		pstmt.setString(1,MaKH);
+    		rs = pstmt.executeQuery();
+    		
+    		while(rs.next()) {
+    			KhachHangDTO dto = new KhachHangDTO();
+    			
+    			dto.setMaKH(rs.getString("MaKH"));
+    			dto.setHoTenKH(rs.getString("HoKH") + " " + rs.getString("TenKH"));
+    			dto.setDiaChi(rs.getString("DiaChi"));
+    			dto.setSdt(rs.getString("SDT"));
+    			dto.setMaDoan(rs.getString("MaDoan"));
+    			
+    			dtos.add(dto);
+    		}
+    		
+    		return dtos;
+    	} catch(SQLException e) {
+    		e.printStackTrace();
+    	}
+    	
+		return null;
+	}
+
+	public ArrayList<KhachHangDTO> getByTenKH(String TenKH) {
+    	ArrayList<KhachHangDTO> dtos = new ArrayList<KhachHangDTO>();
+    	String query = "SELECT * FROM KhachHang WHERE HoKH, TenKH LIKE ?"; 
+    	try {
+    		conn = JDBCConnection.getJDBCConnection(tableName);
+    		pstmt = conn.prepareStatement(query);
+    		pstmt.setString(1,"%" + TenKH + "%");
     		rs = pstmt.executeQuery();
     		
     		while(rs.next()) {

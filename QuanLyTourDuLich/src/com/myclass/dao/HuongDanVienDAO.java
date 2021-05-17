@@ -10,9 +10,10 @@ import java.util.ArrayList;
 
 import com.myclass.connector.JDBCConnection;
 import com.myclass.dto.HuongDanVienDTO;
+import com.myclass.dto.TourDTO;
 
 public class HuongDanVienDAO {
-	private final static String tableName = "HuongDanVien";
+	private final static String tableName = "huongdanvien";
 	Connection conn;
 	PreparedStatement pstmt;
 	ResultSet rs;
@@ -21,9 +22,63 @@ public class HuongDanVienDAO {
 		
 	}
 	
-	public HuongDanVienDTO getById(String maHdv) {
-		return null;
-	}
+	public ArrayList<HuongDanVienDTO> getByTenHDV(String TenHDV) {
+    	ArrayList<HuongDanVienDTO> dtos = new ArrayList<HuongDanVienDTO>();
+    	String query = "SELECT * FROM huongdanvien WHERE Ho LIKE? and Ten LIKE?"; 
+    	try {
+    		conn = JDBCConnection.getJDBCConnection(tableName);
+    		pstmt = conn.prepareStatement(query);
+    		pstmt.setString(1, "%" +TenHDV );
+    		rs = pstmt.executeQuery();
+    		
+    		while(rs.next()) {
+    			HuongDanVienDTO dto = new HuongDanVienDTO();
+    			
+    			dto.setMaHDV(rs.getString("MaHDV"));
+				dto.setHoTen(rs.getString("Ho") + " " + rs.getString("Ten"));
+				dto.setNgaySinh(rs.getString("NgaySinh"));
+				dto.setGioiTinh(rs.getString("GioiTinh"));
+				dto.setDiaChi(rs.getString("DiaChi"));
+				dto.setSdt(rs.getString("SDT"));
+				dtos.add(dto);
+    		}
+    		
+    		return dtos;
+    	} catch(SQLException e) {
+    		e.printStackTrace();
+    	}
+    	
+    	return null;
+    }
+	
+	public ArrayList<HuongDanVienDTO> getByMaHDV(String MaHDV) {
+    	ArrayList<HuongDanVienDTO> dtos = new ArrayList<HuongDanVienDTO>();
+    	String query = "SELECT * FROM huongdanvien WHERE MaHDV = ?"; 
+    	try {
+    		conn = JDBCConnection.getJDBCConnection(tableName);
+    		pstmt = conn.prepareStatement(query);
+    		pstmt.setString(1, MaHDV);
+    		rs = pstmt.executeQuery();
+    		
+    		while(rs.next()) {
+    			HuongDanVienDTO dto = new HuongDanVienDTO();
+    			
+    			dto.setMaHDV(rs.getString("MaHDV"));
+				dto.setHoTen(rs.getString("Ho") + " " + rs.getString("Ten"));
+				dto.setNgaySinh(rs.getString("NgaySinh"));
+				dto.setGioiTinh(rs.getString("GioiTinh"));
+				dto.setDiaChi(rs.getString("DiaChi"));
+				dto.setSdt(rs.getString("SDT"));
+				dtos.add(dto);
+    		}
+    		
+    		return dtos;
+    	} catch(SQLException e) {
+    		e.printStackTrace();
+    	}
+    	
+    	return null;
+    }
 	
 	public ArrayList<HuongDanVienDTO> getAll() {
 		ArrayList<HuongDanVienDTO> dtos;

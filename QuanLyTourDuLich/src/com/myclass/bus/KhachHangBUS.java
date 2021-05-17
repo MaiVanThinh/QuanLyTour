@@ -12,10 +12,7 @@ public class KhachHangBUS {
 	
 	public KhachHangBUS() {}
 	
-	public KhachHangDTO getById(String maKH) {
-		
-		return khachHangDAO.getById(maKH);
-	}
+	
 	
 	
 	public void add(KhachHangDTO dto) {
@@ -32,6 +29,14 @@ public class KhachHangBUS {
 	
 	public ArrayList<KhachHangDTO> getByTenKH(String tenKH) {
 		return khachHangDAO.getByTenKH(tenKH);
+	}
+	
+	public ArrayList<KhachHangDTO> getByMaKH(String MaKH) {
+		return khachHangDAO.getByMaKH(MaKH);
+	}
+	
+	public ArrayList<KhachHangDTO> getAll() {
+		return khachHangDAO.getAll();
 	}
 	
 	public int getSoNguoiByMaDoan(String maDoan) {

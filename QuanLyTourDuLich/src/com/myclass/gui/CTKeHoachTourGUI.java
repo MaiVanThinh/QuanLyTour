@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI;
+package com.myclass.gui;
 
 import javax.swing.JOptionPane;
 
@@ -67,7 +67,7 @@ public class CTKeHoachTourGUI extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 0, 0));
-        jLabel1.setText("CHI TIẾT KẾ HOẠCH TOUR");
+        jLabel1.setText("CHI TIáº¾T Káº¾ HOáº CH TOUR");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -89,34 +89,34 @@ public class CTKeHoachTourGUI extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("Mã CTKH Tour");
+        jLabel2.setText("MÃ£ CTKH Tour");
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel3.setText("Danh sách kế hoạch theo ngày");
+        jLabel3.setText("Danh sÃ¡ch káº¿ hoáº¡ch theo ngÃ y");
 
         jComboBox1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ngày 1", "Ngày 2 ", "Ngày 3", "Ngày 4" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NgÃ y 1", "NgÃ y 2 ", "NgÃ y 3", "NgÃ y 4" }));
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel4.setText("Mã phương tiện");
+        jLabel4.setText("MÃ£ phÆ°Æ¡ng tiá»‡n");
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel5.setText("Mã nhà hàng");
+        jLabel5.setText("MÃ£ nhÃ  hÃ ng");
 
         jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel6.setText("Mã khách sạn");
+        jLabel6.setText("MÃ£ khÃ¡ch sáº¡n");
 
         jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel7.setText("Mã địa điểm tham quan");
+        jLabel7.setText("MÃ£ Ä‘á»‹a Ä‘iá»ƒm tham quan");
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel8.setText("Mã chi tiết thu chi");
+        jLabel8.setText("MÃ£ chi tiáº¿t thu chi");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -202,7 +202,7 @@ public class CTKeHoachTourGUI extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel9.setText("Danh sách các sự kiện Tour");
+        jLabel9.setText("Danh sÃ¡ch cÃ¡c sá»± kiá»‡n Tour");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -226,7 +226,7 @@ public class CTKeHoachTourGUI extends javax.swing.JFrame {
         lstDSSK.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         lstDSSK.setForeground(new java.awt.Color(0, 0, 0));
         lstDSSK.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Danh sách kế hoạch theo ngày", "Danh sách phương tiện", "Danh sách nhà hàng", "Danh sách khách sạn", "Danh sách địa điểm tham quan", "Danh sách thu chi" };
+            String[] strings = { "Danh sÃ¡ch káº¿ hoáº¡ch theo ngÃ y", "Danh sÃ¡ch phÆ°Æ¡ng tiá»‡n", "Danh sÃ¡ch nhÃ  hÃ ng", "Danh sÃ¡ch khÃ¡ch sáº¡n", "Danh sÃ¡ch Ä‘á»‹a Ä‘iá»ƒm tham quan", "Danh sÃ¡ch thu chi" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
@@ -241,13 +241,13 @@ public class CTKeHoachTourGUI extends javax.swing.JFrame {
 
         jLabel10.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel10.setText("Kế Hoạch Theo Ngày");
+        jLabel10.setText("Káº¿ Hoáº¡ch Theo NgÃ y");
 
         jList2.setBackground(new java.awt.Color(255, 204, 255));
         jList2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jList2.setForeground(new java.awt.Color(0, 0, 0));
         jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Buổi sáng: 8:00am - 11:30am", "Buổi trưa: 11h30am- 15:00pm", "Buổi chiều: 15:00pm- 18:30pm", "Buổi tối: 18:30pm- 21:00pm", "Hoạt động khác" };
+            String[] strings = { "Buá»•i sÃ¡ng: 8:00am - 11:30am", "Buá»•i trÆ°a: 11h30am- 15:00pm", "Buá»•i chiá»�u: 15:00pm- 18:30pm", "Buá»•i tá»‘i: 18:30pm- 21:00pm", "Hoáº¡t Ä‘á»™ng khÃ¡c" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
@@ -361,7 +361,7 @@ public class CTKeHoachTourGUI extends javax.swing.JFrame {
             
         }
         else{
-            JOptionPane.showMessageDialog(this, "Lỗi");
+            JOptionPane.showMessageDialog(this, "Lá»—i");
         }
         */
         
@@ -370,7 +370,7 @@ public class CTKeHoachTourGUI extends javax.swing.JFrame {
             ptGUI.setVisible(true);
         }
         else{
-            JOptionPane.showMessageDialog(this, "Lỗi");
+            JOptionPane.showMessageDialog(this, "Lá»—i");
         }
         
         if(selectedIndex == 2){
@@ -378,7 +378,7 @@ public class CTKeHoachTourGUI extends javax.swing.JFrame {
             nhGUI.setVisible(true);
         }
         else{
-            JOptionPane.showMessageDialog(this, "Lỗi");
+            JOptionPane.showMessageDialog(this, "Lá»—i");
         }
         
         if(selectedIndex == 3){
@@ -386,7 +386,7 @@ public class CTKeHoachTourGUI extends javax.swing.JFrame {
             ksGUI.setVisible(true);
         }
         else{
-            JOptionPane.showMessageDialog(this, "Lỗi");
+            JOptionPane.showMessageDialog(this, "Lá»—i");
         }
         
         if(selectedIndex == 4){
@@ -394,7 +394,7 @@ public class CTKeHoachTourGUI extends javax.swing.JFrame {
             ddtqGUI.setVisible(true);
         }
         else{
-            JOptionPane.showMessageDialog(this, "Lỗi");
+            JOptionPane.showMessageDialog(this, "Lá»—i");
         }
         
         /*if(selectedIndex == 5){
@@ -402,7 +402,7 @@ public class CTKeHoachTourGUI extends javax.swing.JFrame {
             //ptGUI.setVisible(true);
         }
         else{
-            JOptionPane.showMessageDialog(this, "Lỗi");
+            JOptionPane.showMessageDialog(this, "Lá»—i");
         }
         */
         

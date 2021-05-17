@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package BUS;
+package com.myclass.bus;
 
-import DAO.DiaDiemThamQuanDAO;
-import DTO.DiaDiemThamQuanDTO;
-import DTO.KhachSanDTO;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.myclass.dao.DiaDiemThamQuanDAO;
+import com.myclass.dto.DiaDiemThamQuanDTO;
 
 /**
  *
