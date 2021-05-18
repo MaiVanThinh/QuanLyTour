@@ -1794,20 +1794,33 @@ public class Application extends JFrame {
 		lblHopDong_TieuDe.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 30));
 		cardQuanLyHopDong.add(lblHopDong_TieuDe);
 		
-		JLabel lblHopDong_TimKiem = new JLabel("Tìm kiếm:");
-		lblHopDong_TimKiem.setFont(new Font("Tahoma", Font.ITALIC, 16));
-		lblHopDong_TimKiem.setBounds(20, 400, 80, 30);
-		cardQuanLyHopDong.add(lblHopDong_TimKiem);
+		JButton btnHopDong_TimKiem = new JButton("Tìm");
 		
-		JTextField txtHopDong_TimKiem = new JTextField();
-		txtHopDong_TimKiem.setBounds(100, 400, 200, 30);
-		txtHopDong_TimKiem.setColumns(10);
-		cardQuanLyHopDong.add(txtHopDong_TimKiem);
+		btnHopDong_TimKiem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ArrayList<HopDongDTO> listKQ;
+				
+			            String input = JOptionPane.showInputDialog(btnTourSearch, "Mời bạn nhập mã Tour !");
+			            
+			            if(input != null && input.length() > 0){
+			                listKQ = hopDongBUS.getByMaHD(input);
+			                hopDongTblModel.setRowCount(0);
+			                
+			                for(HopDongDTO dto : listKQ) {
+								hopDongTblModel.addRow(new Object[] {
+										dto.getMaHD(), dto.getNgayLapHD(), dto.getNoiDung(), dto.getMaTour()
+								});
+			                };
+			            }
+			           
+			        }
+			        
+			        
+		});
 		
-//		JButton btnHopDong_TimKiem = new JButton("Tìm\r\n");
-//		btnHopDong_TimKiem.setFont(new Font("Tahoma", Font.PLAIN, 16));
-//		btnHopDong_TimKiem.setBounds(310, 400, 80, 30);
-//		cardQuanLyHopDong.add(btnHopDong_TimKiem);
+		btnHopDong_TimKiem.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnHopDong_TimKiem.setBounds(310, 400, 80, 30);
+		cardQuanLyHopDong.add(btnHopDong_TimKiem);
 		
 		JScrollPane HopDongScrollPane = new JScrollPane();
 		HopDongScrollPane.setBounds(50, 450, 750, 273);
